@@ -23,7 +23,15 @@
  */
 - (instancetype)initWithPathWithPath: (NSSearchPathDirectory)path
                         databaseName: (NSString *)DBName;
+/*
+ 单例的设置 - 可选使用单例 - 只允许全程1个数据库
+ */
++ (XXDB *)shareInstance;
 
+/*
+ 设置数据库路径
+ */
+- (void)setDbPathWithPath: (NSString *)path;
 
 #pragma mark tables
 /*
@@ -32,6 +40,10 @@
  */
 - (BOOL)createTableWithSQL: (NSString *)SQL;
 
+/*
+ 通过模型与模型内的属性创建数据表
+ */
+- (BOOL) createTableByClassAttributes: (id)classModel;
 /*
  drop table with tableName
  通过表名称删除表
@@ -53,6 +65,12 @@
  更新语句： 可用于除查询语句之外的所有数据库语句 包括创建、删除表等
  */
 - (BOOL)updateDatabaseWithSQL: (NSString *)SQL;
+
+/*
+ 通过类的属性 得到SQL插入语句 INSERT!!  测试外边拼接是否正确的... 大家淡定、 或者可以帮助你做测试
+ */
+- (NSString *)sqlQueryWithClassAttributes: (id)object
+                                tableName:(NSString *)tableName;
 
 #pragma mark searchDB
 /*
